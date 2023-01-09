@@ -37,9 +37,11 @@ function Home({ profile, projects }) {
   );
 }
 export async function getServerSideProps() {
-  let res = await fetch(`http://localhost:8080/profile`);
+  let res = await fetch(`https://api.github.com/users/shivshankar`);
   let data = await res.json();
-  let res1 = await fetch(`http://localhost:8080/projects`);
+  let res1 = await fetch(
+    `https://api.github.com/search/repositories?q=user:shivshankar0965+fork:true&sort=updated&per_page=10&type=Repositories`
+  );
   let data1 = await res1.json();
   return {
     props: {

@@ -30,7 +30,7 @@ const Profile = ({ profile }) => {
             <Image
               objectFit="cover"
               boxSize="100%"
-              src={profile.avatar_url}
+              src={"https://avatars.githubusercontent.com/u/65837544?v=4"}
               alt={"shiv_profile"}
             />
           </Flex>
