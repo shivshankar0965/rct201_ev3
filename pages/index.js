@@ -1,11 +1,17 @@
 import Head from "next/head";
-import Image from "next/image";
+
 import { Inter } from "@next/font/google";
-import styles from "../styles/Home.module.css";
+
+import { Flex, HStack } from "@chakra-ui/react";
+import Profile from "../Components/Profile";
+import Skills from "../Components/Skills";
+import Timeline from "../Components/Timeline";
+import Projects from "../Components/Projects";
+import Navbar from "../Components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+function Home({ profile, projects }) {
   return (
     <>
       <Head>
@@ -14,6 +20,32 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <Flex>
+        <HStack>
+          <Flex gap="6" w={"500px"} direction="column">
+            <Profile profile={profile} />
+            <Skills />
+            <Timeline />
+          </Flex>
+          <Flex direction="column" width="1000px">
+            <Projects data={projects} />
+          </Flex>
+        </HStack>
+      </Flex>
     </>
   );
 }
+export async function getServerSideProps() {
+  let res = await fetch(`http://localhost:8080/profile`);
+  let data = await res.json();
+  let res1 = await fetch(`http://localhost:8080/projects`);
+  let data1 = await res1.json();
+  return {
+    props: {
+      profile: data,
+      projects: data1,
+    },
+  };
+}
+export default Home;
